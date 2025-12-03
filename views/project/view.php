@@ -1,8 +1,8 @@
 <?php
 
 use yii\bootstrap5\Html;
+use yii\bootstrap5\Breadcrumbs;
 use yii\widgets\DetailView;
-
 
 /** @var yii\web\View $this */
 /** @var app\models\Project $model */
@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="project-view">
+<!-- <div class="project-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -58,8 +58,82 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php else: ?>
     <p><em>Please login to participate in the discussion.</em></p>
 <?php endif; ?>
-</div>
+</div> -->
 
+<div class="project-view">
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h3 class="card-title mb-3">
+                        <?= Html::encode($model->name) ?>
+                    </h3>
+                    <p class="text-muted mb-2">
+                        Client:
+                        <strong><?= Html::encode($model->client ? $model->client->name : '(None)') ?></strong>
+                    </p>
+
+                    <?= DetailView::widget([
+                        'model' => $model,
+                        'options' => ['class' => 'table table-borderless mb-0'],
+                        'attributes' => [
+                            [
+                                'attribute' => 'status',
+                                'format' => 'raw',
+                                'value' => function ($model) {
+                                    $map = [
+                                        'active' => 'success',
+                                        'on_hold' => 'warning',
+                                        'completed' => 'secondary',
+                                    ];
+                                    $labelMap = [
+                                        'active' => 'Active',
+                                        'on_hold' => 'On Hold',
+                                        'completed' => 'Completed',
+                                    ];
+                                    $status = $model->status ?? 'active';
+                                    $class = $map[$status] ?? 'secondary';
+                                    $text = $labelMap[$status] ?? ucfirst($status);
+
+                                    return '<span class="badge bg-' . $class . '">' . Html::encode($text) . '</span>';
+                                },
+                            ],
+                            [
+                                'attribute' => 'description',
+                                'format' => 'ntext',
+                            ],
+                            [
+                                'attribute' => 'created_at',
+                                'value' => date('Y-m-d H:i', $model->created_at),
+                            ],
+                            [
+                                'attribute' => 'updated_at',
+                                'value' => date('Y-m-d H:i', $model->updated_at),
+                            ],
+                        ],
+                    ]) ?>
+
+                    <?php if (!Yii::$app->user->identity->isClient()): ?>
+                        <div class="mt-3">
+                            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary me-2']) ?>
+                            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                                'class' => 'btn btn-outline-danger',
+                                'data' => [
+                                    'confirm' => 'Are you sure you want to delete this project?',
+                                    'method' => 'post',
+                                ],
+                            ]) ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Discussion block yahi rehne do, jo tumne pehle banaya -->
+            <!-- (comment-list + textarea + script) -->
+        </div>
+    </div>
+</div>
 
 <?php
 use yii\helpers\Url;
