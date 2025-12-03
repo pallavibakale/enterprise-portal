@@ -1,88 +1,410 @@
-main > .container {
-    padding: 70px 15px 20px;
+/* ================================
+   Global / Base
+=================================== */
+
+:root {
+  --bg-color: #f4f5f7;
+  --card-bg: #ffffff;
+  --border-soft: #e1e4ea;
+  --text-main: #1f2933;
+  --text-muted: #6b7280;
+  --primary: #2563eb;
+  --primary-soft: #e0ecff;
+  --danger: #dc2626;
+  --success: #16a34a;
+  --warning: #ea980f;
+  --radius-lg: 12px;
+  --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
 }
 
-.footer {
-    background-color: #f5f5f5;
-    font-size: .9em;
-    height: 60px;
+html,
+body {
+  height: 100%;
 }
 
-.footer > .container {
-    padding-right: 15px;
-    padding-left: 15px;
+body {
+  background: radial-gradient(
+    circle at top left,
+    #e0ecff,
+    #f4f5f7 40%,
+    #f9fafb 80%
+  );
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  font-size: 14px;
 }
 
-.not-set {
-    color: #c55;
-    font-style: italic;
+/* Wrapper layout from Yii */
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
-    content: '';
-    left: 3px;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border: solid 5px transparent;
-    margin: 4px 4px 2px 4px;
-    background: transparent;
+.wrap > .container {
+  flex: 1;
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 
-a.asc:after {
-    border-bottom: solid 7px #212529;
-    border-top-width: 0;
+/* Flash messages / alerts spacing */
+.alert {
+  border-radius: 8px;
 }
 
-a.desc:after {
-    border-top: solid 7px #212529;
-    border-bottom-width: 0;
+/* ================================
+   Navbar
+=================================== */
+
+.navbar.navbar-expand-md.navbar-dark.bg-dark {
+  background: linear-gradient(90deg, #020617, #0f172a, #111827);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.5);
 }
 
-.grid-view th {
-    white-space: nowrap;
+.navbar .navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-size: 18px;
 }
 
-.hint-block {
-    display: block;
-    margin-top: 5px;
-    color: #999;
+.navbar .nav-link {
+  font-weight: 500;
+  color: #e5e7eb !important;
+  opacity: 0.8;
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.error-summary {
-    color: #a94442;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
+.navbar .nav-link:hover,
+.navbar .nav-link:focus,
+.navbar .nav-item.active .nav-link {
+  opacity: 1;
+  transform: translateY(-1px);
 }
 
-/* align the logout "link" (button in form) of the navbar */
-.nav li > form > button.logout {
-    padding-top: 7px;
-    color: rgba(255, 255, 255, 0.5);
+/* Right-side auth links */
+.navbar .navbar-nav.ms-auto .nav-link {
+  font-size: 13px;
 }
 
-@media(max-width:767px) {
-    .nav li > form > button.logout {
-        display:block;
-        text-align: left;
-        width: 100%;
-        padding: 10px 0;
-    }
+/* ================================
+   Landing / Home (Guest)
+=================================== */
+
+.site-index {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.nav > li > form > button.logout:focus,
-.nav > li > form > button.logout:hover {
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.75);
+.site-index .display-5 {
+  font-weight: 700;
 }
 
-.nav > li > form > button.logout:focus {
-    outline: none;
+.site-index .lead {
+  color: var(--text-muted);
 }
 
-.form-group {
-    margin-bottom: 1rem;
+.site-index .card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+.site-index .card-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* ================================
+   Generic Cards & Panels
+=================================== */
+
+.card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+}
+
+.card.shadow-sm {
+  box-shadow: var(--shadow-soft);
+}
+
+.card-title {
+  font-weight: 600;
+}
+
+/* Section headings */
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text-main);
+}
+
+/* ================================
+   Tables (Projects / Clients)
+=================================== */
+
+.table {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table thead tr {
+  background: #f3f4f6;
+}
+
+.table thead th {
+  border-bottom: 1px solid var(--border-soft);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+}
+
+.table tbody td {
+  vertical-align: middle;
+  border-color: #edf0f5;
+  font-size: 13px;
+}
+
+/* Hover row */
+.table-hover tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Action column icons/buttons */
+.table .action-column a {
+  margin-right: 4px;
+}
+
+/* ================================
+   Buttons
+=================================== */
+
+.btn {
+  border-radius: 6px;
+  font-weight: 500;
+  padding-inline: 14px;
+  padding-block: 6px;
+  font-size: 13px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.btn-outline-danger {
+  border-width: 1px;
+}
+
+.btn-success {
+  background-color: #16a34a;
+  border-color: #16a34a;
+}
+
+/* "Create" buttons above GridView */
+.mb-3 .btn.btn-success,
+.mb-3 .btn.btn-primary {
+  box-shadow: 0 4px 10px rgba(34, 197, 94, 0.15);
+}
+
+/* ================================
+   Badges (Project status)
+=================================== */
+
+.badge {
+  border-radius: 999px;
+  font-size: 11px;
+  padding: 4px 10px;
+  font-weight: 500;
+}
+
+.badge.bg-success {
+  background-color: rgba(22, 163, 74, 0.1) !important;
+  color: #15803d !important;
+}
+
+.badge.bg-warning {
+  background-color: rgba(234, 152, 15, 0.1) !important;
+  color: #a16207 !important;
+}
+
+.badge.bg-secondary {
+  background-color: rgba(148, 163, 184, 0.1) !important;
+  color: #475569 !important;
+}
+
+/* ================================
+   Forms / Inputs
+=================================== */
+
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border-color: #d1d5db;
+  font-size: 13px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.3);
+}
+
+/* Form card wrapper */
+.client-form,
+.project-form,
+.site-login {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* Labels */
+.form-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ================================
+   Login Page
+=================================== */
+
+.site-login .card {
+  margin-top: 40px;
+}
+
+.site-login .card-title {
+  font-size: 20px;
+}
+
+/* ================================
+   Project View Page
+=================================== */
+
+.project-view .card {
+  margin-bottom: 20px;
+}
+
+.project-view .card-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.project-view .text-muted {
+  color: var(--text-muted) !important;
+}
+
+.project-view .table.table-borderless td {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/* Description formatting */
+.project-view .detail-view td:nth-child(2) {
+  max-width: 600px;
+}
+
+/* ================================
+   Comments / Discussion
+=================================== */
+
+.comment-item {
+  border-bottom: 1px solid #edf0f5;
+  padding: 8px 0;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-item strong {
+  font-size: 13px;
+}
+
+.comment-item span {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.comment-item div {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Comment area */
+.comment-form textarea {
+  border-radius: 8px;
+  resize: vertical;
+}
+
+#comment-list {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #edf0f5;
+  padding: 10px 12px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+/* ================================
+   Breadcrumbs / Page Titles
+=================================== */
+
+.breadcrumb {
+  font-size: 12px;
+  margin-top: 20px;
+}
+
+.page-title,
+h1.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ================================
+   Utilities
+=================================== */
+
+.text-muted-soft {
+  color: var(--text-muted);
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+/* Spacing helpers if you want */
+.section-header {
+  margin-bottom: 16px;
+}
+
+/* ================================
+   Responsive tweaks
+=================================== */
+
+@media (max-width: 768px) {
+  .site-index .py-5 {
+    padding-top: 32px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .navbar .navbar-brand {
+    font-size: 16px;
+  }
+
+  .wrap > .container {
+    padding-inline: 12px;
+  }
 }
