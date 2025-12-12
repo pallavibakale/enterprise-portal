@@ -2,10 +2,6 @@
 
 A secure, role-based collaboration platform built using **PHP (Yii2 MVC)** and **MySQL**.
 
-## 🎥 Demo
-
-![Demo](demo.gif)
-
 ## 📦 Features
 
 - Role-based authentication
